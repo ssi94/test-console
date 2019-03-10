@@ -16,12 +16,13 @@ class ImportItemsCommand extends Command
         $this->setName('import')
             ->setDescription('Import csv file to mysql database')
             ->addArgument('fileName', InputArgument::REQUIRED, 'Csv file name.')
-            ->addOption('test', null, InputOption::VALUE_OPTIONAL,
-                'Import in "test mode" (only validate and show stats)?', true);
+            ->addOption('test', null, InputOption::VALUE_NONE,
+                'Import in "test mode" (only validate and show stats)?');
     }
 
     public function execute(InputInterface $input, OutputInterface $output) {
         $fileName = $input->getArgument('fileName');
+        $testMode = $input->getOption('test') ?: false;
         $message = "Reading file: " . $fileName. "\n";
         $output->writeln("<info>{$message}</info>");
         if (($handle = @fopen($fileName, "r")) !== FALSE) {
