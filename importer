@@ -3,12 +3,26 @@
 <?php
 
 use App\ImportItemsCommand;
+use App\DatabaseAdapter;
 use Symfony\Component\Console\Application;
 
 require 'vendor/autoload.php';
 
 $app = new Application('Mysql importer for csv', '1.0');
 
-$app->add(new ImportItemsCommand);
+$dsn = 'mysql:dbname=qubiz_test;host=127.0.0.1';
+$user = 'root';
+$password = 'root';
+
+try {
+    $pdo = new PDO($dsn, $user, $password);
+} catch (PDOException $e) {
+    echo "Connection to database failed.\n";
+    exit(1);
+}
+
+$dbAdapter = new DatabaseAdapter($pdo);
+
+$app->add(new ImportItemsCommand($dbAdapter));
 
 $app->run();
