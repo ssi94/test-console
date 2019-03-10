@@ -6,6 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Helper\Table;
 
 class ImportItemsCommand extends Command
@@ -14,7 +15,9 @@ class ImportItemsCommand extends Command
     public function configure() {
         $this->setName('import')
             ->setDescription('Import csv file to mysql database')
-            ->addArgument('fileName', InputArgument::REQUIRED, 'Csv file name.');
+            ->addArgument('fileName', InputArgument::REQUIRED, 'Csv file name.')
+            ->addOption('test', null, InputOption::VALUE_OPTIONAL,
+                'Import in "test mode" (only validate and show stats)?', true);
     }
 
     public function execute(InputInterface $input, OutputInterface $output) {
