@@ -8,7 +8,7 @@
  3. composer install
  4. set up mysql connection in importer
 ## Usage
-./importer help
-./importer import help
-./importer import file.csv
-./importer import file.csv --test
+./importer help  
+./importer import help  
+./importer import file.csv  
+./importer import file.csv --test  
